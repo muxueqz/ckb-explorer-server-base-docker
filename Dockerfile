@@ -95,4 +95,6 @@ RUN git clone https://github.com/bitcoin-core/secp256k1.git \
   --enable-experimental \
   --enable-module-ecdh\
  && make && make install
+
+RUN gem install bundler
 CMD [ "irb" ]
