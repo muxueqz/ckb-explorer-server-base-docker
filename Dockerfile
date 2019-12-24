@@ -10,7 +10,7 @@ RUN set -eux; \
 
 ENV RUBY_MAJOR 2.6
 ENV RUBY_VERSION 2.6.4
-ENV RUBY_DOWNLOAD_SHA256 fa1ecc67b99fa13201499002669412eae7cfbe2c30c4f1f4526e8491edfc5fa7
+ENV RUBY_DOWNLOAD_SHA256 df593cd4c017de19adf5d0154b8391bb057cef1b72ecdd4a8ee30d3235c65f09
 
 # some of ruby's build scripts are written in ruby
 #   we purge system ruby later to make sure our final image uses what we just built
@@ -88,4 +88,11 @@ ENV PATH $GEM_HOME/bin:$BUNDLE_PATH/gems/bin:$PATH
 RUN mkdir -p "$GEM_HOME" && chmod 777 "$GEM_HOME"
 # (BUNDLE_PATH = GEM_HOME, no need to mkdir/chown both)
 
+RUN git clone https://github.com/bitcoin-core/secp256k1.git \
+ && cd secp256k1 && ./autogen.sh\
+ && ./configure \
+  --enable-module-recovery \
+  --enable-experimental \
+  --enable-module-ecdh\
+ && make && make install
 CMD [ "irb" ]
