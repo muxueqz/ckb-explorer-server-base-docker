@@ -1,2 +1,2 @@
 # ckb-explorer-server-base-docker
-CKB Explorer Server Dockfile
+CKB Explorer Server Dockerfile
